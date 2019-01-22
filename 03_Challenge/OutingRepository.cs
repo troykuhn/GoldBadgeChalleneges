@@ -30,23 +30,15 @@ namespace _03_Challenge
             return totalCost;
         }
 
-        //public decimal CostByType(EventType type)
-        //{
-        //    decimal total = 0m;
-            
-        //    foreach (OutingInformation outing in _outingInfo)
-        //    {
-        //        if (type == outing.Type)
-        //            total += outing.EventCost;
-        //        else if (type == outing.Type)
-        //            total += outing.EventCost;
-        //        else if (type == outing.Type)
-        //            total += outing.EventCost;
-        //        else if (type == outing.Type)
-        //            total += outing.EventCost;
-        //    }
-        //    return total;
-        //}
+        public decimal CostByType(EventType type)
+        {
+            decimal totalCost = 0m;
+            foreach (OutingInformation outing in _outingInfo)
+            {
+                totalCost += outing.EventCost;
+            }
+            return totalCost;
+        }
 
         public decimal CalculateCostByType(EventType type)
         {

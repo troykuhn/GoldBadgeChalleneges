@@ -73,6 +73,7 @@ namespace _01_Challenge
                 ingredients.Add(input);
                 Console.WriteLine("Would you like to enter another ingredient?");
             }
+            
 
             Console.WriteLine("Enter the a description.");
             string description = Console.ReadLine();

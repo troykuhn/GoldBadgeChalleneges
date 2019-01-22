@@ -84,8 +84,7 @@ namespace _03_Challenge
                     break;
             }
 
-            decimal totalCost =_outingRepo.Calculate
-                CostByType(type);
+            decimal totalCost =_outingRepo.CalculateCostByType(type);
             Console.WriteLine($"\"{type}\" outings have a total cost of  ${totalCost}");
             Console.ReadKey();
         }
