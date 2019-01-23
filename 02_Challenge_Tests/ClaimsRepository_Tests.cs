@@ -38,7 +38,7 @@ namespace _02_Challenge_Tests
             repo.AddClaimToQueue(claim);
             repo.AddClaimToQueue(claimTwo);
             repo.AddClaimToQueue(claimThree);
-            repo.RemoveClaimFromQueue(claimTwo);
+            repo.RemoveClaimFromQueue();
 
             int actual = repo.GetClaimInformation().Count;
             int expected = 2;

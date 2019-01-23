@@ -15,6 +15,18 @@ namespace _04_Challenge
         {
             _badgeRepo = new BadgeRepository();
             _badges = _badgeRepo.GetBadgeInfo();
+            SeedList();
+        }
+
+        private void SeedList()
+        {
+            List<string> doorsOne = new List<string> { "A1", "A2", "B1", "B2" };
+            List<string> doorsTwo = new List<string> { "C1", "C2", "D1", "D2" };
+            Badge badge = new Badge(123, doorsOne);
+            Badge badgeTwo = new Badge(124, doorsTwo);
+
+            _badgeRepo.AddBadge(badge);
+            _badgeRepo.AddBadge(badgeTwo);
         }
 
         public void Run()
@@ -57,7 +69,7 @@ namespace _04_Challenge
 
             List<string> doorNames = new List<string>();
             Console.WriteLine("List a door that this badge needs access to.");
-            string response = Console.ReadLine();
+            string response = Console.ReadLine().ToUpper();
             doorNames.Add(response);
 
             bool addDoor = true;
@@ -77,7 +89,6 @@ namespace _04_Challenge
                 }
             }
 
-
             Badge badge = new Badge(badgeID, doorNames);
             _badgeRepo.AddBadge(badge);
         }
@@ -86,21 +97,16 @@ namespace _04_Challenge
         {
             Console.WriteLine("What is the badge number to update?");
             int badgeID = ParseInput();
-            Console.WriteLine("What would you like to do?");
-
 
             foreach (KeyValuePair<int, List<string>> badge in _badges)
             {
-                Console.WriteLine($"Badge ID#{badgeID} has access to:");
                 foreach (string door in badge.Value)
                 {
-                    Console.Write($"{door}");
-                }
-                if (badge.Key == badgeID)
-                {
-                    _badgeRepo.GetBadgeInfo();
+                    if (badge.Key == badgeID)
+                        Console.WriteLine($"Badge ID#{badgeID} has access to: {door} ");
                 }
             }
+
             Console.WriteLine("What would you like to do?\n" +
                     "1. Remove a Door\n" +
                     "2. Add a Door");
@@ -113,41 +119,70 @@ namespace _04_Challenge
                 case 1:
                     Console.WriteLine("Which door would you like to remove?");
                     string remove = Console.ReadLine().ToUpper();
-                    badge Remove(remove);
+                    foreach (KeyValuePair<int, List<string>> badge in _badges)
+                    {
+                        foreach (string door in badge.Value)
+                        {
+                            if (_badges.ContainsKey(badgeID))
+                            {
+                                badge.Value.Remove(remove);
+                                break;
+                            }
+                            Console.WriteLine($"{remove} Door has been removed.");
+                            foreach (string remainingDoor in badge.Value)
+                            {
+                                Console.WriteLine($"Badge ID#{badgeID} has access to: {remainingDoor}");
+                            }
+
+                        }
+                    }
                     break;
                 case 2:
                     Console.WriteLine("Which door would you like to add?");
                     string add = Console.ReadLine().ToUpper();
-                    doorNames.Add(add);
+                    foreach (KeyValuePair<int, List<string>> badge in _badges)
+                    {
+                        foreach (string door in badge.Value)
+                        {
+                            bool run = true;
+                            while (run)
+                            {
+                                if (badgeID == badge.Key)
+                                {
+                                    badge.Value.Add(add);
+                                    Console.WriteLine($"Badge ID#{badgeID} has access to: {add}");
+                                }
+                                Console.WriteLine("Would you like to add another door? y/n");
+                                string boolResponse = Console.ReadLine();
+                                if (boolResponse == "y")
+                                {
+                                    run = true;
+                                    Console.WriteLine("Which door would you like to add?");
+                                    add = Console.ReadLine().ToUpper();
+                                }
+                                else
+                                    run = false;
+                            }
+                            break;
+                        }
+                        break;
+                    }
                     break;
             }
-            Console.ReadLine();
 
-            foreach
-            List<string> values = _badges[badgeID];
-            _badges[badgeID] = new List<string>();
-            Console.WriteLine(_badges[badgeID]);
-            //_badgeRepo.GetBadgeInfo(values);
-            Console.WriteLine($"{values}");
             Console.ReadKey();
-            //_badges[]
-            //foreach (badgeID, List<string>> in _badges)
-            //{
-            //    if()
-            //}
-
-
+            Run();
         }
 
         private void ListAllBadges()
         {
+            Console.WriteLine("Badge ID#\t\t Door Access");
             foreach (KeyValuePair<int, List<string>> badge in _badges)
             {
-                Console.WriteLine("Badge ID#\t\t Door Access");
-                Console.Write($" {badge.Key}\t\t");
+                Console.WriteLine($" {badge.Key}\t\t");
                 foreach (string door in badge.Value)
                 {
-                    Console.Write($"\t\t{door}");
+                    Console.WriteLine($"\t\t\t{door}");
                 }
             }
             Console.ReadLine();
