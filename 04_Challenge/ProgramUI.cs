@@ -126,17 +126,20 @@ namespace _04_Challenge
                             if (_badges.ContainsKey(badgeID))
                             {
                                 badge.Value.Remove(remove);
-                                break;
-                            }
-                            Console.WriteLine($"{remove} Door has been removed.");
-                            foreach (string remainingDoor in badge.Value)
-                            {
-                                Console.WriteLine($"Badge ID#{badgeID} has access to: {remainingDoor}");
                             }
 
+                            foreach (string remainingDoor in badge.Value)
+                            {
+                                if (badgeID == badge.Key)
+                                {
+                                    Console.WriteLine($"Badge ID#{badgeID} has access to: {remainingDoor}");
+                                }
+                            }
+                            break;
                         }
                     }
-                    break;
+                    Console.WriteLine($"{remove} Door has been removed.");
+                   break;
                 case 2:
                     Console.WriteLine("Which door would you like to add?");
                     string add = Console.ReadLine().ToUpper();
@@ -144,29 +147,23 @@ namespace _04_Challenge
                     {
                         foreach (string door in badge.Value)
                         {
-                            bool run = true;
-                            while (run)
+                            if (_badges.ContainsKey(badgeID))
+                            {
+                                badge.Value.Add(add);
+                            }
+
+                            foreach (string remainingDoor in badge.Value)
                             {
                                 if (badgeID == badge.Key)
                                 {
-                                    badge.Value.Add(add);
-                                    Console.WriteLine($"Badge ID#{badgeID} has access to: {add}");
+                                    Console.WriteLine($"Badge ID#{badgeID} has access to: {remainingDoor}");
+
                                 }
-                                Console.WriteLine("Would you like to add another door? y/n");
-                                string boolResponse = Console.ReadLine();
-                                if (boolResponse == "y")
-                                {
-                                    run = true;
-                                    Console.WriteLine("Which door would you like to add?");
-                                    add = Console.ReadLine().ToUpper();
-                                }
-                                else
-                                    run = false;
                             }
                             break;
                         }
-                        break;
                     }
+                    Console.WriteLine($"{add} Door has been added.");
                     break;
             }
 
