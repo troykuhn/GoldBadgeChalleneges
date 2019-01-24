@@ -147,7 +147,7 @@ namespace _04_Challenge
                     {
                         foreach (string door in badge.Value)
                         {
-                            if (_badges.ContainsKey(badgeID))
+                            if (badgeID == badge.Key)
                             {
                                 badge.Value.Add(add);
                             }
@@ -168,7 +168,6 @@ namespace _04_Challenge
             }
 
             Console.ReadKey();
-            Run();
         }
 
         private void ListAllBadges()
@@ -182,6 +181,7 @@ namespace _04_Challenge
                     Console.WriteLine($"\t\t\t{door}");
                 }
             }
+            
             Console.ReadLine();
         }
 
